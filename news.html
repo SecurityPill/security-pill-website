@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Security Pill | Cybersecurity Briefings & Alerts</title>
+    <meta name="description" content="Follow breaking cybersecurity news, breach reports, and policy updates curated by Security Pill analysts.">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🛡️";
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00d4ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00d4ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .page-header {
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.15), transparent 65%);
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            max-width: 680px;
+        }
+
+        .alert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 255, 0.12);
+            color: #00d4ff;
+            border-radius: 999px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #f8fafc;
+        }
+
+        .section-subtitle {
+            color: #94a3b8;
+            max-width: 640px;
+        }
+
+        .section-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .section-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        .news-highlights {
+            padding: 4rem 0 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.12);
+        }
+
+        .news-card .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.8rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.12);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .news-card h3 {
+            font-size: 1.35rem;
+            color: #f8fafc;
+            line-height: 1.4;
+        }
+
+        .news-card p {
+            color: #94a3b8;
+        }
+
+        .news-meta {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .timeline-section {
+            padding: 4rem 0;
+        }
+
+        .timeline {
+            margin-top: 2.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 12px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.4), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.15);
+            border: 2px solid #00d4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #00d4ff;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.2rem;
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: #94a3b8;
+        }
+
+        .timeline-item .timestamp {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.75rem;
+        }
+
+        .policy-section {
+            padding: 4rem 0 6rem;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .policy-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, 0.35);
+        }
+
+        .policy-card h4 {
+            font-size: 1.2rem;
+            color: #f8fafc;
+        }
+
+        .policy-card p {
+            color: #94a3b8;
+        }
+
+        .policy-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00d4ff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        footer {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #00d4ff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .news-grid,
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Security Pill</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="news.html" class="active">News</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <span class="alert-badge">Live Threat Feed</span>
+                <h1>Today's Cybersecurity Briefing</h1>
+                <p>Stay ahead of the latest breaches, vulnerability disclosures, and regulatory shifts shaping the security landscape. Updated multiple times per day by Security Pill analysts.</p>
+            </div>
+        </section>
+
+        <section class="news-highlights">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Top Stories</h2>
+                        <p class="section-subtitle">The most urgent headlines impacting security teams, privacy advocates, and technology leaders worldwide.</p>
+                    </div>
+                    <a href="#timeline" class="section-link">Jump to live timeline</a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <span class="badge">Breach Watch</span>
+                        <h3>Critical VPN Appliance Zero-Day Exploited In The Wild</h3>
+                        <p>Vendors confirm active exploitation targeting unpatched perimeter devices. Emergency signatures are available with updated firmware rolling out within 24 hours.</p>
+                        <span class="news-meta">Patch guidance released • CVSS 9.8</span>
+                    </article>
+                    <article class="news-card">
+                        <span class="badge">Threat Intel</span>
+                        <h3>Initial Access Brokers Offer Corporate SSO Sessions</h3>
+                        <p>Marketplaces are listing stolen Okta and Azure AD session tokens harvested through infostealer malware. Rotate credentials and enforce hardware-based MFA.</p>
+                        <span class="news-meta">Active listings tracked across 4 forums</span>
+                    </article>
+                    <article class="news-card">
+                        <span class="badge">Privacy</span>
+                        <h3>Major Browser Ships Post-Quantum Key Agreement Support</h3>
+                        <p>The latest release enables hybrid key exchange for TLS 1.3, reducing the risk of future decryption attacks against intercepted traffic.</p>
+                        <span class="news-meta">Update now for full PQ support</span>
+                    </article>
+                    <article class="news-card">
+                        <span class="badge">Industry</span>
+                        <h3>Security Leaders Form Coalition on AI Transparency Standards</h3>
+                        <p>Forty organizations have pledged to share evaluation frameworks for AI-driven detections, targeting clearer metrics around false positives and reliability.</p>
+                        <span class="news-meta">Whitepaper expected August 2025</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section" id="timeline">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Live Incident Timeline</h2>
+                        <p class="section-subtitle">Minute-by-minute updates for incidents that may require defensive action or executive awareness.</p>
+                    </div>
+                    <a href="resources.html" class="section-link">Download response checklist</a>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">08:10</div>
+                        <h4>Phishing Campaign Spoofs Major Payroll Provider</h4>
+                        <p>Security teams report a wave of messages delivering malicious attachments disguised as direct deposit updates. Block sender domains and alert finance staff.</p>
+                        <div class="timestamp">Updated 10 minutes ago • Impacting North America &amp; EU</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">07:25</div>
+                        <h4>Supply Chain Compromise Investigated at IoT Vendor</h4>
+                        <p>Customers observed unsigned firmware pushed to smart building sensors. Vendor has halted updates while forensic review continues.</p>
+                        <div class="timestamp">Updated 45 minutes ago • Temporary mitigation: disable auto-updates</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">06:40</div>
+                        <h4>Critical Infrastructure DDoS Mitigated</h4>
+                        <p>National CERT confirms service restoration after coordinated volumetric attacks targeting regional energy providers. Additional filtering remains in place.</p>
+                        <div class="timestamp">Updated 1 hour ago • Monitor for follow-on extortion</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="policy-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Policy &amp; Compliance Watch</h2>
+                        <p class="section-subtitle">New regulations, enforcement actions, and frameworks you should brief to leadership this week.</p>
+                    </div>
+                    <a href="resources.html" class="section-link">Get compliance toolkit</a>
+                </div>
+                <div class="policy-grid">
+                    <article class="policy-card">
+                        <span class="policy-meta">US • Draft Rule</span>
+                        <h4>SEC Proposes Faster Breach Disclosure for Public Companies</h4>
+                        <p>Organizations would need to file incidents within 48 hours of determining material impact. Review your notification workflows and legal approval paths.</p>
+                    </article>
+                    <article class="policy-card">
+                        <span class="policy-meta">APAC • Final Guidance</span>
+                        <h4>Singapore MAS Updates Technology Risk Management Guidelines</h4>
+                        <p>Mandatory independent security testing for high-risk systems begins January 2026. Start vendor coordination to meet the new assurance requirements.</p>
+                    </article>
+                    <article class="policy-card">
+                        <span class="policy-meta">Global • Standard</span>
+                        <h4>ISO Releases Draft for Quantum-Resistant Cryptography Controls</h4>
+                        <p>Organizations are encouraged to inventory crypto dependencies and plan migration to hybrid algorithms over the next 24 months.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Security Pill</h3>
+                    <p>Your trusted source for cybersecurity news, insights, and protection strategies. Stay secure, stay informed.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="blog.html">Latest Blog Posts</a></p>
+                    <p><a href="news.html">Security News</a></p>
+                    <p><a href="resources.html">Resources</a></p>
+                    <p><a href="index.html#about">About Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@securitypill.com</p>
+                    <p>For security tips and updates</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Security Pill. All rights reserved. | Protecting your digital world.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+        });
+
+        // Smooth scrolling for in-page links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') {
+                    e.preventDefault();
+                    return;
+                }
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -72,7 +72,8 @@
             position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #00d4ff;
         }
 
@@ -87,7 +88,8 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -180,6 +182,47 @@
             font-size: 2.5rem;
             margin-bottom: 3rem;
             color: #f1f5f9;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-header .section-title {
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        .section-subtitle {
+            color: #94a3b8;
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        .section-header .section-subtitle {
+            margin-top: 0.5rem;
+        }
+
+        .section-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .section-link:hover::after {
+            transform: translateX(4px);
         }
 
         .features-grid {
@@ -297,6 +340,167 @@
             font-size: 0.95rem;
         }
 
+        .news-preview {
+            padding: 6rem 0;
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .news-meta {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .news-title {
+            font-size: 1.35rem;
+            color: #f1f5f9;
+            font-weight: 700;
+        }
+
+        .news-summary {
+            color: #94a3b8;
+        }
+
+        .news-impact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 255, 0.08);
+            color: #00d4ff;
+            border-radius: 999px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .resources-preview {
+            padding: 6rem 0;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(0, 128, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .resource-card h3 {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.75rem;
+            color: #f1f5f9;
+        }
+
+        .resource-card p,
+        .resource-card ul {
+            position: relative;
+            z-index: 1;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .resource-card ul {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+
+        .resource-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .about {
+            padding: 6rem 0;
+            background: rgba(15, 15, 35, 0.75);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .about-card h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p,
+        .about-card ul {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .about-card ul {
+            padding-left: 1.2rem;
+        }
+
         /* Footer */
         footer {
             background: rgba(15, 15, 35, 0.8);
@@ -350,20 +554,27 @@
             .nav-links {
                 display: none;
             }
-            
+
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero p {
                 font-size: 1.1rem;
             }
-            
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
             .features-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .post-grid {
+
+            .post-grid,
+            .news-grid,
+            .resource-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -372,12 +583,12 @@
 <body>
     <header>
         <nav class="container">
-            <a href="#" class="logo">Security Pill</a>
+            <a href="index.html" class="logo">Security Pill</a>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#resources">Resources</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="resources.html">Resources</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
         </nav>
@@ -389,7 +600,7 @@
                 <div class="hero-content">
                     <h1>Your Daily Dose of Cybersecurity</h1>
                     <p>Stay ahead of digital threats with expert insights, breaking news, and practical security tips. Protecting your digital life, one pill at a time.</p>
-                    <a href="#latest" class="cta-button">Get Protected Today</a>
+                    <a href="#blog" class="cta-button">Get Protected Today</a>
                 </div>
             </div>
         </section>
@@ -417,9 +628,15 @@
             </div>
         </section>
 
-        <section class="latest-posts" id="latest">
+        <section class="latest-posts" id="blog">
             <div class="container">
-                <h2 class="section-title">Latest Security Insights</h2>
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Latest Security Insights</h2>
+                        <p class="section-subtitle">Fresh analysis and practical advice from our editorial team to keep your digital life protected.</p>
+                    </div>
+                    <a href="blog.html" class="section-link">View all articles</a>
+                </div>
                 <div class="post-grid">
                     <article class="post-card">
                         <div class="post-image">🔒</div>
@@ -448,6 +665,111 @@
                 </div>
             </div>
         </section>
+
+        <section class="news-preview" id="news">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Security News Briefing</h2>
+                        <p class="section-subtitle">Track emerging threats and industry moves with our curated roundup of the most important headlines.</p>
+                    </div>
+                    <a href="news.html" class="section-link">View all updates</a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <span class="news-meta">Breaking • July 15, 2025</span>
+                        <h3 class="news-title">Global Hospitality Chain Confirms Credential Stuffing Breach</h3>
+                        <p class="news-summary">Over 30,000 loyalty accounts were accessed after reused passwords were exploited. Reset campaigns and MFA enforcement are now underway.</p>
+                        <span class="news-impact">⚠️ Business Impact: Medium</span>
+                    </article>
+                    <article class="news-card">
+                        <span class="news-meta">Policy Watch • July 14, 2025</span>
+                        <h3 class="news-title">EU Finalizes AI Security Baseline for Critical Infrastructure</h3>
+                        <p class="news-summary">Operators will be required to run annual risk assessments on machine learning models that control utilities and transportation systems.</p>
+                        <span class="news-impact">🛡️ Compliance Deadline: Q4 2025</span>
+                    </article>
+                    <article class="news-card">
+                        <span class="news-meta">Research • July 13, 2025</span>
+                        <h3 class="news-title">New Malware-as-a-Service Kits Mimic Legitimate Update Tools</h3>
+                        <p class="news-summary">Threat actors are packaging loader scripts inside fake software updaters, bypassing basic email filters and endpoint protections.</p>
+                        <span class="news-impact">🚨 Recommended Action: Patch & Educate</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="resources-preview" id="resources">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Featured Security Resources</h2>
+                        <p class="section-subtitle">Download actionable checklists, frameworks, and templates designed to accelerate your security improvements.</p>
+                    </div>
+                    <a href="resources.html" class="section-link">Explore resources</a>
+                </div>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <span class="resource-icon">📘</span>
+                        <h3>Guides &amp; Playbooks</h3>
+                        <p>Step-by-step instructions to strengthen your security posture at home or across the enterprise.</p>
+                        <ul>
+                            <li>Incident response tabletop exercises</li>
+                            <li>Small business security starter kit</li>
+                            <li>Personal privacy configuration checklist</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <span class="resource-icon">🧪</span>
+                        <h3>Assessment Templates</h3>
+                        <p>Ready-to-use worksheets that help you document risks, prioritize fixes, and report progress to stakeholders.</p>
+                        <ul>
+                            <li>Quarterly vulnerability review matrix</li>
+                            <li>Vendor security due diligence form</li>
+                            <li>Employee security awareness tracker</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <span class="resource-icon">🔐</span>
+                        <h3>Toolbox &amp; Downloads</h3>
+                        <p>Trusted utilities and configuration files curated by our analysts to make deployment painless.</p>
+                        <ul>
+                            <li>Password manager onboarding pack</li>
+                            <li>Open-source endpoint hardening scripts</li>
+                            <li>Secure remote work policy template</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">About Security Pill</h2>
+                        <p class="section-subtitle">We combine decades of practitioner experience with newsroom rigor to deliver guidance you can trust.</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <div class="about-card">
+                        <h3>Our Mission</h3>
+                        <p>Security Pill exists to make cybersecurity knowledge accessible to everyone. We translate complex technical topics into clear, actionable steps that help you protect what matters.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>What We Cover</h3>
+                        <ul>
+                            <li>Daily threat intelligence and breach analysis</li>
+                            <li>Hands-on tutorials for modern tools and platforms</li>
+                            <li>Strategic guidance for leadership and security teams</li>
+                        </ul>
+                    </div>
+                    <div class="about-card">
+                        <h3>Stay Connected</h3>
+                        <p>Join thousands of readers who rely on our weekly briefing for prioritized actions, curated resources, and expert commentary.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -459,9 +781,9 @@
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
-                    <p><a href="#blog">Latest Blog Posts</a></p>
-                    <p><a href="#news">Security News</a></p>
-                    <p><a href="#resources">Resources</a></p>
+                    <p><a href="blog.html">Latest Blog Posts</a></p>
+                    <p><a href="news.html">Security News</a></p>
+                    <p><a href="resources.html">Resources</a></p>
                     <p><a href="#about">About Us</a></p>
                 </div>
                 <div class="footer-section">
@@ -516,7 +838,7 @@
         }, observerOptions);
 
         // Observe feature cards and post cards
-        document.querySelectorAll('.feature-card, .post-card').forEach(el => {
+        document.querySelectorAll('.feature-card, .post-card, .news-card, .resource-card, .about-card').forEach(el => {
             observer.observe(el);
         });
     </script>
