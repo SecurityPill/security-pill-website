@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Security Pill | Guides, Templates & Toolkits</title>
+    <meta name="description" content="Browse Security Pill's curated library of cybersecurity guides, checklists, and ready-to-use templates for teams and individuals.">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🛡️";
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00d4ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00d4ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .page-header {
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.18), transparent 65%);
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            max-width: 720px;
+        }
+
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cta-button,
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.8rem;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00d4ff 0%, #0080ff 100%);
+            color: #0f172a;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.25);
+        }
+
+        .cta-secondary {
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 212, 255, 0.8);
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #f8fafc;
+        }
+
+        .section-subtitle {
+            color: #94a3b8;
+            max-width: 640px;
+        }
+
+        .section-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .section-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 2.25rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(0, 128, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 22px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            position: relative;
+            z-index: 1;
+            color: #f8fafc;
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-card p,
+        .resource-card ul {
+            position: relative;
+            z-index: 1;
+            color: #94a3b8;
+        }
+
+        .resource-card ul {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+
+        .resource-card li {
+            margin-bottom: 0.6rem;
+        }
+
+        .playbook-section {
+            padding: 4rem 0;
+        }
+
+        .playbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .playbook-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 18px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .playbook-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .playbook-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #00d4ff;
+        }
+
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .download-link::after {
+            content: '⇩';
+            font-size: 1rem;
+        }
+
+        .toolkit-section {
+            padding: 4rem 0 6rem;
+        }
+
+        .toolkit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .toolkit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toolkit-card h4 {
+            color: #f8fafc;
+        }
+
+        .toolkit-card p {
+            color: #94a3b8;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(0, 212, 255, 0.12);
+            color: #00d4ff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        footer {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #00d4ff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+
+            .resource-grid,
+            .playbook-grid,
+            .toolkit-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Security Pill</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="resources.html" class="active">Resources</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Security Resource Hub</h1>
+                <p>Level up your defenses with curated frameworks, printable checklists, and practical playbooks built for small teams, enterprise programs, and personal security goals.</p>
+                <div class="cta-group">
+                    <a href="#library" class="cta-button">Browse the library</a>
+                    <a href="#toolkits" class="cta-secondary">Download starter bundle</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="library">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Curated Collections</h2>
+                        <p class="section-subtitle">Explore organized sets of resources tailored to specific audiences so you can deploy improvements in days, not months.</p>
+                    </div>
+                    <a href="blog.html" class="section-link">Read implementation guides</a>
+                </div>
+                <div class="resource-grid">
+                    <article class="resource-card">
+                        <span class="resource-icon">🏠</span>
+                        <h3>Personal Security Essentials</h3>
+                        <p>Protect your devices, accounts, and privacy with short, actionable walkthroughs anyone can follow.</p>
+                        <ul>
+                            <li>30-day digital hygiene challenge</li>
+                            <li>Password manager quick-start guide</li>
+                            <li>Family phishing awareness kit</li>
+                        </ul>
+                    </article>
+                    <article class="resource-card">
+                        <span class="resource-icon">🏢</span>
+                        <h3>Small Business Jumpstart</h3>
+                        <p>Bootstrapped security frameworks and policies built for organizations without dedicated security staff.</p>
+                        <ul>
+                            <li>Incident response call tree template</li>
+                            <li>Vendor security questionnaire</li>
+                            <li>Bring-your-own-device policy pack</li>
+                        </ul>
+                    </article>
+                    <article class="resource-card">
+                        <span class="resource-icon">🌐</span>
+                        <h3>Enterprise Program Toolkit</h3>
+                        <p>Strategic assets for CISOs and directors responsible for scaling governance, risk, and compliance.</p>
+                        <ul>
+                            <li>Maturity assessment workbook</li>
+                            <li>Quarterly board update template</li>
+                            <li>Zero trust rollout checklist</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="playbook-section" id="playbooks">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Guided Playbooks</h2>
+                        <p class="section-subtitle">Step-by-step sequences for the incidents and initiatives we see most often. Follow along or customize to match your environment.</p>
+                    </div>
+                    <a href="news.html#timeline" class="section-link">Monitor live incidents</a>
+                </div>
+                <div class="playbook-grid">
+                    <article class="playbook-card">
+                        <span class="playbook-meta">Response • Printable PDF</span>
+                        <h3>Ransomware Containment Checklist</h3>
+                        <p>From initial detection to recovery validation, this playbook keeps technical and executive teams aligned.</p>
+                        <a href="#" class="download-link">Download</a>
+                    </article>
+                    <article class="playbook-card">
+                        <span class="playbook-meta">Program • Spreadsheet</span>
+                        <h3>Security Awareness Campaign Planner</h3>
+                        <p>A 12-month calendar with turnkey messaging, metrics, and assets to keep employees engaged.</p>
+                        <a href="#" class="download-link">Download</a>
+                    </article>
+                    <article class="playbook-card">
+                        <span class="playbook-meta">Cloud • Checklist</span>
+                        <h3>Cloud Posture Hardening Guide</h3>
+                        <p>Baseline guardrails for AWS, Azure, and Google Cloud with configuration tracking tabs for audits.</p>
+                        <a href="#" class="download-link">Download</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="toolkit-section" id="toolkits">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Automation &amp; Toolkits</h2>
+                        <p class="section-subtitle">Scripts, dashboards, and templates that accelerate deployment while maintaining strong security controls.</p>
+                    </div>
+                    <a href="news.html" class="section-link">See release notes</a>
+                </div>
+                <div class="toolkit-list">
+                    <article class="toolkit-card">
+                        <h4>Endpoint Hardening Scripts</h4>
+                        <p>Opinionated baseline for Windows, macOS, and Linux workstations with rollback instructions and logging tips.</p>
+                        <div class="tag-list">
+                            <span class="tag">PowerShell</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">macOS</span>
+                        </div>
+                    </article>
+                    <article class="toolkit-card">
+                        <h4>Security Metrics Dashboard</h4>
+                        <p>Interactive data studio template that visualizes incident volume, patch velocity, and phishing simulations.</p>
+                        <div class="tag-list">
+                            <span class="tag">Looker</span>
+                            <span class="tag">KPIs</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </article>
+                    <article class="toolkit-card">
+                        <h4>Third-Party Risk Tracker</h4>
+                        <p>Shared sheet to log vendor assessments, follow-up tasks, and renewal reviews with built-in scoring.</p>
+                        <div class="tag-list">
+                            <span class="tag">GRC</span>
+                            <span class="tag">Vendors</span>
+                            <span class="tag">Template</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Security Pill</h3>
+                    <p>Your trusted source for cybersecurity news, insights, and protection strategies. Stay secure, stay informed.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="blog.html">Latest Blog Posts</a></p>
+                    <p><a href="news.html">Security News</a></p>
+                    <p><a href="resources.html">Resources</a></p>
+                    <p><a href="index.html#about">About Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@securitypill.com</p>
+                    <p>For security tips and updates</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Security Pill. All rights reserved. | Protecting your digital world.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+        });
+
+        // Smooth scrolling for in-page links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') {
+                    e.preventDefault();
+                    return;
+                }
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
